@@ -28,7 +28,7 @@ public class SimpleProcessor extends AbstractProcessor {
         for (TypeElement te : set) {
             for (Element element : roundEnvironment.getElementsAnnotatedWith(te)) {
                 SimpleAnnotation annotation = element.getAnnotation(SimpleAnnotation.class);
-                annotation.date()
+                annotation.date();
             }
         }
         return false;
