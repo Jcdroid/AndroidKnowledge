@@ -14,9 +14,9 @@ public class ServiceUtils {
 
     private static final String TAG = ServiceUtils.class.getSimpleName();
 
-    public static void populateConstants(Class<?> klass) {
-        String packageName = klass.getPackage().getName();
-        for (Field field : klass.getDeclaredFields()) {
+    public static void populateConstants(Class<?> clazz) {
+        String packageName = clazz.getPackage().getName();
+        for (Field field : clazz.getDeclaredFields()) {
             if (Modifier.isStatic(field.getModifiers()) &&
                     field.isAnnotationPresent(ServiceConstant.class)) {
                 String value = packageName + "." + field.getName();
@@ -26,7 +26,7 @@ public class ServiceUtils {
                 } catch (IllegalAccessException iae) {
                     Log.e(TAG, "Unable to setup constant for field " +
                             field.getName() +
-                            " in class " + klass.getName());
+                            " in class " + clazz.getName());
                 }
             }
         }
