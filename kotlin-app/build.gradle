@@ -2,11 +2,11 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "com.jcdroid.kotlin_app"
-        minSdkVersion 15
-        targetSdkVersion 27 // fix Android 8: Cleartext HTTP traffic not permitted(https://stackoverflow.com/questions/45940861/android-8-cleartext-http-traffic-not-permitted)
+        minSdkVersion 19
+        targetSdkVersion 29 // fix Android 8: Cleartext HTTP traffic not permitted(https://stackoverflow.com/questions/45940861/android-8-cleartext-http-traffic-not-permitted)
         versionCode 1
         versionName "1.0"
 

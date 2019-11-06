@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -26,13 +25,14 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.Objects;
 
 /**
  * Android Apk更新器，可执行apk下载和安装
  * <br/>
  * Created by Jcdroid on 2018/7/11.
  */
-public class UpdateManger {
+public final class UpdateManager {
 
     private Context mContext;
 
@@ -44,9 +44,9 @@ public class UpdateManger {
 
     private static class MyHandler extends Handler {
 
-        private WeakReference<UpdateManger> updateMangerWeakReference;
+        private WeakReference<UpdateManager> updateMangerWeakReference;
 
-        public MyHandler(UpdateManger context) {
+        public MyHandler(UpdateManager context) {
             super();
             updateMangerWeakReference = new WeakReference<>(context);
         }
@@ -54,15 +54,15 @@ public class UpdateManger {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            UpdateManger updateManger = updateMangerWeakReference.get();
+            UpdateManager updateManager = updateMangerWeakReference.get();
             if (msg != null) {
                 UpdateInfo updateInfo = (UpdateInfo) msg.obj;
-                updateManger.showUpdateDialog(updateInfo);
+                updateManager.showUpdateDialog(updateInfo);
             }
         }
     }
 
-    private UpdateManger(Builder builder) {
+    private UpdateManager(Builder builder) {
         super();
         this.mContext = builder.mContext;
         this.checkUpdateUrl = builder.checkUpdateUrl;
@@ -163,8 +163,8 @@ public class UpdateManger {
             return this;
         }
 
-        public UpdateManger build() {
-            return new UpdateManger(this);
+        public UpdateManager build() {
+            return new UpdateManager(this);
         }
     }
 
@@ -220,10 +220,10 @@ public class UpdateManger {
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
-            if (action.equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
+            if (Objects.equals(action, DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
                 long downloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0);
                 checkDownloadStatus(context, downloadId);
-            } else if (action.equals(DownloadManager.ACTION_NOTIFICATION_CLICKED)) {
+            } else if (Objects.equals(action, DownloadManager.ACTION_NOTIFICATION_CLICKED)) {
                 Intent downloadIntent = new Intent(DownloadManager.ACTION_VIEW_DOWNLOADS);
                 downloadIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(downloadIntent);

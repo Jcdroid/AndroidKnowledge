@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.jcdroid.androidknowledge.annotations.ServiceConstant;
 import com.jcdroid.androidknowledge.utils.ServiceUtils;
-import com.jcdroid.androidknowledge.utils.UpdateManger;
+import com.jcdroid.androidknowledge.utils.UpdateManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new UpdateManger.Builder(MainActivity.this)
+                new UpdateManager.Builder(MainActivity.this)
                         .checkUpdateUrl("http://www.wanandroid.com/tools/mockapi/3617/download")
                         .build()
                         .checkUpdate();
